@@ -11,10 +11,11 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping(ApiPaths.V1 + "/tenants")
 @RequiredArgsConstructor
 public class TenantController {
-    private final TenantService tenantService;
+    private final TenantServiceImplementation tenantService;
 
     @GetMapping("{slug}/config")
     public TenantPublicResponse getPublicConfig(@PathVariable String slug) {
+        System.out.println(slug);
         return tenantService.getPublicConfig(slug);
     }
 }
