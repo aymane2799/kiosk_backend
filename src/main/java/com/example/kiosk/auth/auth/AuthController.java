@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping(ApiPaths.V1 + "/auth")
 @RequiredArgsConstructor
 public class AuthController {
-    private final AuthService authService;
+    private final AuthServiceImplementation authService;
 
     @GetMapping("login")
     public LoginResponse login(@Valid @RequestBody LoginRequest request) {
