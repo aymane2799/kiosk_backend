@@ -16,7 +16,6 @@ public class TenantController {
 
     @GetMapping("{slug}/config")
     public TenantPublicResponse getPublicConfig(@PathVariable String slug) {
-        System.out.println(slug);
         return tenantService.getPublicConfig(slug);
     }
 }

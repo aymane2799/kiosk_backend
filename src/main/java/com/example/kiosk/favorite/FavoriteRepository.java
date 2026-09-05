@@ -6,6 +6,6 @@ import java.util.List;
 import java.util.Optional;
 
 public interface FavoriteRepository extends JpaRepository<Favorite, String> {
-    List<Favorite> findAllByUserId(String id);
+    List<Favorite> findByUserId(String id);
     Optional<Favorite> findByUserIdAndContentId(String userId, String contentId);
 }

@@ -1,9 +1,11 @@
 package com.example.kiosk.content;
 
+import com.example.kiosk.auth.auth.AuthService;
+import com.example.kiosk.auth.auth.AuthServiceImplementation;
 import com.example.kiosk.auth.user.AppUser;
-import com.example.kiosk.auth.user.AppUserRepository;
 import com.example.kiosk.content.response.ContentDetailResponse;
 import com.example.kiosk.content.response.ContentSummaryResponse;
+import com.example.kiosk.entitlement.EntitlementService;
 import com.example.kiosk.entitlement.EntitlementServiceImplementation;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -16,11 +18,11 @@ import java.util.List;
 @AllArgsConstructor
 public class ContentServiceImplementation implements ContentService{
     private final ContentRepository contentRepository;
-    private final AppUserRepository appUserRepository;
+    private final AuthServiceImplementation authService;
     private final EntitlementServiceImplementation entitlementService;
 
     public List<ContentSummaryResponse> listCatalog(String userId) {
-        AppUser user = requireUser(userId);
+        AppUser user = authService.requireUser(userId);
 
         return contentRepository.findAll().stream()
                 .map(content -> ContentSummaryResponse.from(content, !entitlementService.hasAccess(user, content)))
@@ -28,7 +30,7 @@ public class ContentServiceImplementation implements ContentService{
     }
 
     public ContentDetailResponse getById(String id, String userId) {
-        AppUser user = requireUser(userId);
+        AppUser user = authService.requireUser(userId);
 
         Content content = contentRepository.findById(id).orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND, "Content not found"));
 
@@ -40,8 +42,4 @@ public class ContentServiceImplementation implements ContentService{
     }
 
 
-    private AppUser requireUser(String userId) {
-        return appUserRepository.findById(userId)
-                .orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND, "Unknown user"));
-    }
 }
