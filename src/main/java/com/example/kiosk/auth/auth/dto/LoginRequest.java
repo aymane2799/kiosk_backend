@@ -1,4 +1,4 @@
-package com.example.kiosk.auth.auth;
+package com.example.kiosk.auth.auth.dto;
 
 import jakarta.validation.constraints.NotBlank;
 

@@ -1,5 +1,7 @@
 package com.example.kiosk.auth.auth;
 
+import com.example.kiosk.auth.auth.dto.LoginRequest;
+import com.example.kiosk.auth.auth.response.LoginResponse;
 import com.example.kiosk.common.ApiPaths;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;

@@ -1,6 +1,7 @@
 package com.example.kiosk.tenant;
 
 import com.example.kiosk.common.ApiPaths;
+import com.example.kiosk.tenant.response.TenantPublicResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;

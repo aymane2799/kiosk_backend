@@ -1,4 +1,4 @@
-package com.example.kiosk.auth.auth;
+package com.example.kiosk.auth.auth.response;
 
 import com.example.kiosk.auth.user.Role;
 

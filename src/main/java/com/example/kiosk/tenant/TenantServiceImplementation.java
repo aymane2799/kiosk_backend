@@ -1,5 +1,6 @@
 package com.example.kiosk.tenant;
 
+import com.example.kiosk.tenant.response.TenantPublicResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;

@@ -1,4 +1,6 @@
-package com.example.kiosk.tenant;
+package com.example.kiosk.tenant.response;
+
+import com.example.kiosk.tenant.Tenant;
 
 public record TenantPublicResponse(
         String slug,
