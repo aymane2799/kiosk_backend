@@ -1,0 +1,32 @@
+
+server:
+  port: 8000
+
+spring:
+  datasource:
+    url: ${DATABASE_URL}
+    username: ${DATABASE_USERNAME}
+    password: ${DATABASE_PASSWORD}
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    hibernate:
+      # Log all SQL queries to console in dev — disable in prod
+      show-sql: true
+
+      properties:
+        hibernate:
+          format_sql: true
+
+      # Flyway owns the schema; Hibernate only validates the mapping matches it.
+      ddl-auto: validate
+
+  flyway:
+    enabled: true
+    locations: classpath:db/migrations
+
+# JWT configuration
+jwt:
+  secret: ${JWT_SECRET:kiosk_secret}
+  expiration: ${JWT_EXPIRATION:86400000}   # 24 hours in ms
+  refresh-expiration: ${JWT_REFRESH_EXPIRATION:2592000000}   # 30 days in ms
