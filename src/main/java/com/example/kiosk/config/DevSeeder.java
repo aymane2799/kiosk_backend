@@ -1,8 +1,8 @@
 package com.example.kiosk.config;
 
-import com.example.kiosk.auth.AppUser;
-import com.example.kiosk.auth.AppUserRepository;
-import com.example.kiosk.auth.Role;
+import com.example.kiosk.auth.user.AppUser;
+import com.example.kiosk.auth.user.AppUserRepository;
+import com.example.kiosk.auth.user.Role;
 import com.example.kiosk.content.Content;
 import com.example.kiosk.content.ContentRepository;
 import com.example.kiosk.content.ContentTier;

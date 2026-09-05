@@ -1,6 +1,6 @@
 package com.example.kiosk.subscription.subscription;
 
-import com.example.kiosk.auth.AppUser;
+import com.example.kiosk.auth.user.AppUser;
 import com.example.kiosk.common.Auditable;
 import com.example.kiosk.subscription.plan.Plan;
 import jakarta.persistence.*;

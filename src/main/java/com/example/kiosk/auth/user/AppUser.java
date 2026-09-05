@@ -1,4 +1,4 @@
-package com.example.kiosk.auth;
+package com.example.kiosk.auth.user;
 
 import com.example.kiosk.common.Auditable;
 import com.example.kiosk.tenant.Tenant;

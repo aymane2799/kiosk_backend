@@ -1,6 +1,6 @@
 package com.example.kiosk.favorite;
 
-import com.example.kiosk.auth.AppUser;
+import com.example.kiosk.auth.user.AppUser;
 import com.example.kiosk.common.Auditable;
 import com.example.kiosk.content.Content;
 import jakarta.persistence.*;
