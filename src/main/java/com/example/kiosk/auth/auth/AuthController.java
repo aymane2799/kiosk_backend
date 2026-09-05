@@ -1,11 +1,12 @@
 package com.example.kiosk.auth.auth;
 
+import com.example.kiosk.common.ApiPaths;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/v1/auth")
+@RequestMapping(ApiPaths.V1 + "/auth")
 @RequiredArgsConstructor
 public class AuthController {
     private final AuthService authService;

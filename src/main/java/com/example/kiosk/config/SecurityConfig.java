@@ -1,6 +1,7 @@
 package com.example.kiosk.config;
 
 import com.example.kiosk.auth.jwt.JwtAuthenticationFilter;
+import com.example.kiosk.common.ApiPaths;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -24,7 +25,7 @@ public class SecurityConfig {
         http.csrf(AbstractHttpConfigurer::disable)
                 .sessionManagement(sm -> sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/api/tenants/**", "/api/auth/**").permitAll()
+                        .requestMatchers(ApiPaths.V1 + "/tenants/**", ApiPaths.V1 + "/auth/**").permitAll()
                         .anyRequest().authenticated()
                 ).exceptionHandling(
                         eh -> eh.authenticationEntryPoint((request, response, authException) ->
