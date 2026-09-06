@@ -1,6 +1,7 @@
 package com.example.kiosk.config;
 
 import com.example.kiosk.auth.jwt.JwtAuthenticationFilter;
+import com.example.kiosk.auth.user.Role;
 import com.example.kiosk.common.ApiPaths;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
@@ -27,6 +28,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/error").permitAll()
                         .requestMatchers(ApiPaths.V1 + "/tenants/**", ApiPaths.V1 + "/auth/**").permitAll()
+                        .requestMatchers(ApiPaths.V1 + "/admin/**").hasRole(Role.ADMIN.toString())
                         .anyRequest().authenticated()
                 ).exceptionHandling(
                         eh -> eh.authenticationEntryPoint((request, response, authException) ->

@@ -95,7 +95,7 @@ public class CheckoutServiceImplementation implements CheckoutService{
     }
     
     void resolvePayment(String paymentId, boolean simulateFailure){
-        Payment payment = paymentRepository.findByIdWithSubscriptionAndPlan((paymentId))
+        Payment payment = paymentRepository.findWithSubscriptionAndPlanById((paymentId))
                 .orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND, "Unknown Payment !"));
 
         // return if the payment has already changed status

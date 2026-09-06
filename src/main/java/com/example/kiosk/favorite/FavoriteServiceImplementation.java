@@ -1,6 +1,7 @@
 package com.example.kiosk.favorite;
 
 import com.example.kiosk.auth.auth.AuthService;
+import com.example.kiosk.auth.auth.AuthServiceImplementation;
 import com.example.kiosk.auth.user.AppUser;
 import com.example.kiosk.content.Content;
 import com.example.kiosk.content.ContentRepository;
@@ -18,7 +19,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class FavoriteServiceImplementation implements FavoriteService{
 
-    private final AuthService authService;
+    private final AuthServiceImplementation authService;
     private final FavoriteRepository favoriteRepository;
     private final EntitlementServiceImplementation entitlementService;
     private final ContentRepository contentRepository;

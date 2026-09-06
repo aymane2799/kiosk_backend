@@ -7,4 +7,5 @@ import java.util.List;
 
 public interface PlanRepository extends JpaRepository<Plan, String> {
     List<Plan> findByTenant(Tenant tenant);
+    List<Plan> findByTenantId(String tenant);
 }
