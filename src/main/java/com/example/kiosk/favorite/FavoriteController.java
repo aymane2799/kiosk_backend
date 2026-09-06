@@ -23,7 +23,7 @@ public class FavoriteController {
         return favoriteService.listFavorites(authentication.getName());
     }
 
-    @PostMapping("")
+    @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public ContentSummaryResponse add(Authentication authentication, @Valid  @RequestBody AddFavoriteRequest request) {
         return favoriteService.addFavorite(authentication.getName(), request.contentId());
