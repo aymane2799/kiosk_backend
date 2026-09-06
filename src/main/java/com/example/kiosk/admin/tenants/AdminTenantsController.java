@@ -25,7 +25,7 @@ public class AdminTenantsController {
         return adminTenantService.listTenants();
     }
 
-    @PostMapping("{id}")
+    @PostMapping
     public TenantAdminResponse createTenant(@Valid @RequestBody AdminCreateTenantRequest request) {
         return adminTenantService.createTenant(request);
     }
@@ -37,14 +37,14 @@ public class AdminTenantsController {
 
 //  users
     @GetMapping("{id}/users")
-    public List<AppUserResponse> getUsers(@PathVariable String tenantId) {
-        return adminTenantService.listUsers(tenantId);
+    public List<AppUserResponse> getUsers(@PathVariable String id) {
+        return adminTenantService.listUsers(id);
     }
 
 //  plans
     @GetMapping("{id}/plans")
-    public List<PlanResponse> getPlans(@PathVariable String tenantId) {
-        return adminTenantService.listPlans(tenantId);
+    public List<PlanResponse> getPlans(@PathVariable String id) {
+        return adminTenantService.listPlans(id);
     }
 
     @PostMapping("{id}/plans")

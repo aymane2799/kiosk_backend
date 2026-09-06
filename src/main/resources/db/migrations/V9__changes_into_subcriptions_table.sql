@@ -1,0 +1,3 @@
+ALTER TABLE subscriptions
+ALTER COLUMN started_at DROP NOT NULL,
+ALTER COLUMN expires_at DROP NOT NULL;

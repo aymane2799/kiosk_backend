@@ -1,7 +1,9 @@
 package com.example.kiosk.auth.auth;
 
 import com.example.kiosk.auth.auth.dto.LoginRequest;
+import com.example.kiosk.auth.auth.dto.MockPartnerTokenRequest;
 import com.example.kiosk.auth.auth.response.LoginResponse;
+import com.example.kiosk.auth.auth.response.MockPartnerTokenResponse;
 import com.example.kiosk.auth.jwt.JwtService;
 import com.example.kiosk.auth.user.AppUser;
 import com.example.kiosk.auth.user.AppUserRepository;
@@ -11,9 +13,11 @@ import com.example.kiosk.tenant.TenantRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 import org.springframework.web.server.ResponseStatusException;
 import tools.jackson.databind.ObjectMapper;
 
+import java.nio.charset.StandardCharsets;
 import java.util.Base64;
 
 @Service
@@ -56,6 +60,25 @@ public class AuthServiceImplementation {
     public AppUser requireUser(String userId) {
         return appUserRepository.findById(userId)
                 .orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND, "Unknown user"));
+    }
+
+    public MockPartnerTokenResponse generatePartnerToken(MockPartnerTokenRequest request) {
+        Tenant tenant = tenantRepository.findBySlug(request.tenantSlug())
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Unknown tenant"));
+
+        PartnerIdentity identity = new PartnerIdentity(
+                tenant.getProviderId(),
+                request.externalId(),
+                request.email(),
+                request.firstName(),
+                request.lastName()
+        );
+
+        String json = objectMapper.writeValueAsString(identity);
+
+        String token = Base64.getEncoder().encodeToString(json.getBytes(StandardCharsets.UTF_8));
+
+        return new MockPartnerTokenResponse(token);
     }
 
 

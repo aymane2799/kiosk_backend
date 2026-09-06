@@ -19,8 +19,8 @@ public class FavoriteController {
     private final FavoriteServiceImplementation favoriteService;
 
     @GetMapping
-    public List<ContentSummaryResponse> list(@RequestParam String userId) {
-        return favoriteService.listFavorites(userId);
+    public List<ContentSummaryResponse> list(Authentication authentication) {
+        return favoriteService.listFavorites(authentication.getName());
     }
 
     @PostMapping("")

@@ -47,6 +47,7 @@ public class AdminTenantsServiceImplementation implements AdminTenantsService {
 
     @Override
     public List<AppUserResponse> listUsers(String tenantId) {
+        System.out.println("tenantId : " + tenantId);
         return userService.listAll(tenantId).stream()
                 .map(AppUserResponse::from)
                 .toList();

@@ -1,5 +1,8 @@
 package com.example.kiosk.config;
 
+import com.example.kiosk.admin.Admin;
+import com.example.kiosk.admin.AdminRole;
+import com.example.kiosk.admin.auth.AdminRepository;
 import com.example.kiosk.auth.user.AppUser;
 import com.example.kiosk.auth.user.AppUserRepository;
 import com.example.kiosk.auth.user.Role;
@@ -13,6 +16,7 @@ import com.example.kiosk.tenant.TenantRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Profile;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import java.time.Instant;
@@ -26,10 +30,22 @@ public class DevSeeder implements CommandLineRunner {
     private final AppUserRepository appUserRepository;
     private final ContentRepository contentRepository;
     private final PlanRepository planRepository;
-
+    private final AdminRepository adminRepository;
+    private final PasswordEncoder passwordEncoder;
 
     @Override
     public void run(String... args) throws Exception {
+
+        if(adminRepository.count() == 0) {
+            adminRepository.save(Admin.builder()
+                    .email("admin@kioskbridge.com")
+                    .password(passwordEncoder.encode("password"))
+                    .firstName("Aymane")
+                    .lastName("Oulad Benhamou")
+                    .role(AdminRole.ADMIN)
+                    .build());
+        }
+
         if(tenantRepository.count() > 0) {
             return;
         }
@@ -73,7 +89,7 @@ public class DevSeeder implements CommandLineRunner {
                         .email("admin@lematin.example")
                         .firstName("Admin")
                         .lastName("Le Matin")
-                        .role(Role.ADMIN)
+                        .role(Role.USER)
                         .build()
         );
 

@@ -40,7 +40,7 @@ public class CheckoutServiceImplementation implements CheckoutService{
     
     public List<PlanResponse> listPlans(String slug){
         Tenant tenant = tenantRepository.findBySlug(slug)
-                .orElseThrow(() -> new RuntimeException("Tenant not found!"));
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Unknown tenant !"));
         
         return planRepository.findByTenant(tenant).stream()
                 .map(PlanResponse::from)
@@ -58,7 +58,7 @@ public class CheckoutServiceImplementation implements CheckoutService{
     public SubscriptionResponse checkout(String userId, CheckoutRequest request){
         AppUser user = authService.requireUser(userId);
         Plan plan = planRepository.findById(request.planId())
-                .orElseThrow(() -> new RuntimeException("Unknown plan !"));
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Unknown plan !"));
 
         // Plan is tenant-scoped
         if(!plan.getTenant().getId().equals(user.getTenant().getId())){
@@ -99,7 +99,7 @@ public class CheckoutServiceImplementation implements CheckoutService{
                 .orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND, "Unknown Payment !"));
 
         // return if the payment has already changed status
-        if(payment.getStatus() == PaymentStatus.PENDING){
+        if(payment.getStatus() != PaymentStatus.PENDING){
             return;
         }
 

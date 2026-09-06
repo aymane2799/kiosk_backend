@@ -1,8 +1,10 @@
 package com.example.kiosk.auth.jwt;
 
+import com.example.kiosk.admin.Admin;
 import com.example.kiosk.auth.user.AppUser;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
+import io.jsonwebtoken.JwtBuilder;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Value;
@@ -29,16 +31,28 @@ public class JwtServiceImplementation implements JwtService {
     }
 
     public String generateToken(AppUser user) {
+
+        return baseToken(user.getId())
+                .claim("tenantId", user.getTenant().getId())
+                .claim("role", user.getRole())
+                .compact();
+    }
+
+    public String generateAdminToken(Admin admin) {
+
+        return baseToken(admin.getId())
+                .claim("role", admin.getRole())
+                .compact();
+    }
+
+    private JwtBuilder baseToken(String subject) {
         Instant now = Instant.now();
 
         return Jwts.builder()
-                .subject(user.getId())
-                .claim("tenantId", user.getTenant().getId())
-                .claim("role", user.getRole())
+                .subject(subject)
                 .issuedAt(Date.from(now))
                 .expiration(Date.from(now.plusMillis(expirationMs)))
-                .signWith(secretKey)
-                .compact();
+                .signWith(secretKey);
     }
 
     public Jws<Claims> parseToken(String token) {

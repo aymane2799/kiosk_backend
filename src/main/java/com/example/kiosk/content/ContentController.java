@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping(ApiPaths.V1 + "content")
+@RequestMapping(ApiPaths.V1 + "/content")
 @RequiredArgsConstructor
 public class ContentController {
 

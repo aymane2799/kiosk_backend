@@ -12,6 +12,8 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
@@ -31,7 +33,7 @@ public class SecurityConfig {
     private List<String> allowedOrigins;
 
     @Bean
-    private CorsConfigurationSource corsConfigurationSource() {
+    public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration config = new CorsConfiguration();
 
         config.setAllowedOrigins(allowedOrigins);
@@ -47,6 +49,11 @@ public class SecurityConfig {
     }
 
     @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
+
+    @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.csrf(AbstractHttpConfigurer::disable)
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
@@ -54,7 +61,8 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/error").permitAll()
                         .requestMatchers(ApiPaths.V1 + "/tenants/**", ApiPaths.V1 + "/auth/**").permitAll()
-                        .requestMatchers(ApiPaths.V1 + "/admin/**").hasRole(Role.ADMIN.toString())
+                        .requestMatchers(ApiPaths.V1 + "/admin/auth/**").permitAll()
+                        .requestMatchers(ApiPaths.V1 + "/admin/**").hasRole("ADMIN")
                         .anyRequest().authenticated()
                 ).exceptionHandling(
                         eh -> eh.authenticationEntryPoint((request, response, authException) ->

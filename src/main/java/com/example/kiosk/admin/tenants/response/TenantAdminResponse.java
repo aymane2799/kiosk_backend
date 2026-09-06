@@ -10,7 +10,7 @@ public record TenantAdminResponse(
         String name,
         String logoUrl,
         String primaryColor,
-        String secondaryColorAppUserResponse,
+        String secondaryColor,
         String providerId,
         Instant createdAt
 ) {
