@@ -11,6 +11,7 @@ import java.util.List;
 
 public interface AdminTenantsService {
     List<TenantAdminResponse> listTenants();
+    TenantAdminResponse getTenant(String id);
     TenantAdminResponse createTenant(AdminCreateTenantRequest request);
     TenantAdminResponse updateTenant(String tenantId, AdminUpdateTenantRequest request);
 

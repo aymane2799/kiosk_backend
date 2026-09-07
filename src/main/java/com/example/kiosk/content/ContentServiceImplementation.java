@@ -28,11 +28,10 @@ public class ContentServiceImplementation implements ContentService{
 
         Set<String> favoriteIds = favoriteRepository.findContentIdsByUserId(userId);
         boolean isPremium = entitlementService.hasActivePremium(user);
-
         return contentRepository.findAll().stream()
                 .map(content -> ContentSummaryResponse.from(
                         content,
-                        isPremium,
+                        content.getTier() == ContentTier.PREMIUM && !isPremium,
                         favoriteIds.contains(content.getId())
                         ))
                 .toList();

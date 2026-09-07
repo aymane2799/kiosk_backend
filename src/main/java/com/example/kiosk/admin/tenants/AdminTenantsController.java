@@ -25,6 +25,11 @@ public class AdminTenantsController {
         return adminTenantService.listTenants();
     }
 
+    @GetMapping("{id}")
+    public TenantAdminResponse getTenant(@PathVariable  String id) {
+        return adminTenantService.getTenant(id);
+    }
+
     @PostMapping
     public TenantAdminResponse createTenant(@Valid @RequestBody AdminCreateTenantRequest request) {
         return adminTenantService.createTenant(request);

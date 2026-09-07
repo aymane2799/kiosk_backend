@@ -8,6 +8,7 @@ import java.util.List;
 public interface TenantService {
     TenantPublicResponse getPublicConfig(String slug);
     List<Tenant> listAll();
+    Tenant getById(String id);
     Tenant createTenant(AdminCreateTenantRequest request);
     Tenant requireTenant(String id);
 

@@ -26,7 +26,12 @@ public class TenantServiceImplementation implements TenantService {
     public List<Tenant> listAll() {
         return tenantRepository.findAll();
     }
-    
+
+    public Tenant getById(String id) {
+        return tenantRepository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Tenant not found ! "));
+    }
+
     public Tenant createTenant(AdminCreateTenantRequest request){
         requireSlugAndNameAvailable(request.slug(), request.name(), null);
 

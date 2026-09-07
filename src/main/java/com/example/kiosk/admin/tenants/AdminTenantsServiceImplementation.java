@@ -32,6 +32,13 @@ public class AdminTenantsServiceImplementation implements AdminTenantsService {
     }
 
     @Override
+    public TenantAdminResponse getTenant(String id) {
+        Tenant tenant =  tenantService.getById(id);
+
+        return TenantAdminResponse.from(tenant);
+    }
+
+    @Override
     public TenantAdminResponse createTenant(AdminCreateTenantRequest request) {
         Tenant tenant = tenantService.createTenant(request);
 
