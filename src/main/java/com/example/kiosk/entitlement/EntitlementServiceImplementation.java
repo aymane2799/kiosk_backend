@@ -26,6 +26,13 @@ public class EntitlementServiceImplementation implements EntitlementService{
                 .isPresent();
     }
 
+    @Override
+    public boolean hasActivePremium(AppUser user) {
+        return subscriptionRepository.findTopByUserOrderByCreatedAtDesc(user)
+                .filter(this::isActivePremium)
+                .isPresent();
+    }
+
     private boolean isActivePremium(Subscription subscription) {
         return subscription.getStatus() == SubscriptionStatus.ACTIVE
                 && subscription.getPlan().getTier() == ContentTier.PREMIUM

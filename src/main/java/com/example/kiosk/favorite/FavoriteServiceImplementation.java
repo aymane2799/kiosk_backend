@@ -29,7 +29,7 @@ public class FavoriteServiceImplementation implements FavoriteService{
         AppUser user = authService.requireUser(userId);
         return favoriteRepository.findByUserId(userId).stream()
                 .map(Favorite::getContent)
-                .map(content -> ContentSummaryResponse.from(content, !entitlementService.hasAccess(user, content)))
+                .map(content -> ContentSummaryResponse.from(content, !entitlementService.hasAccess(user, content), true))
                 .toList();
     }
 
@@ -46,12 +46,12 @@ public class FavoriteServiceImplementation implements FavoriteService{
                                 .content(content)
                                 .build()));
 
-        return ContentSummaryResponse.from(favorite.getContent(), !entitlementService.hasAccess(user, content));
+        return ContentSummaryResponse.from(favorite.getContent(), !entitlementService.hasAccess(user, content), true);
     }
 
     public void removeFavorite(String userId, String contentId) {
         Favorite favorite = favoriteRepository.findByUserIdAndContentId(userId, contentId)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Favorite Content not found"));
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Favorite not found"));
 
          favoriteRepository.delete(favorite);
     }

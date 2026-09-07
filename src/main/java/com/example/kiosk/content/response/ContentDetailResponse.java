@@ -12,9 +12,10 @@ public record ContentDetailResponse(
         String body,
         String category,
         ContentTier tier,
-        Instant publishedAt
+        Instant publishedAt,
+        boolean favorite
 ) {
-    public static ContentDetailResponse from(Content content) {
+    public static ContentDetailResponse from(Content content, boolean favorite) {
         return new ContentDetailResponse(
                 content.getId(),
                 content.getTitle(),
@@ -22,7 +23,8 @@ public record ContentDetailResponse(
                 content.getBody(),
                 content.getCategory(),
                 content.getTier(),
-                content.getPublishedAt()
+                content.getPublishedAt(),
+                favorite
         );
     }
 }

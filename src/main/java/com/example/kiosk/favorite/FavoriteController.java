@@ -29,7 +29,7 @@ public class FavoriteController {
         return favoriteService.addFavorite(authentication.getName(), request.contentId());
     }
 
-    @PostMapping("/contentId")
+    @DeleteMapping("/{contentId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(Authentication authentication, @PathVariable String contentId) {
         favoriteService.removeFavorite(authentication.getName(), contentId);

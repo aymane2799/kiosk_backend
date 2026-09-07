@@ -13,9 +13,10 @@ public record ContentSummaryResponse(
         String category,
         ContentTier tier,
         Instant publishedAt,
-        boolean locked
+        boolean locked,
+        boolean favorite
 ) {
-    public static ContentSummaryResponse from(Content content, boolean locked) {
+    public static ContentSummaryResponse from(Content content, boolean locked,boolean favorite) {
         return  new  ContentSummaryResponse(
                 content.getId(),
                 content.getTitle(),
@@ -23,7 +24,8 @@ public record ContentSummaryResponse(
                 content.getCategory(),
                 content.getTier(),
                 content.getPublishedAt(),
-                locked
+                locked,
+                favorite
         );
     }
 }

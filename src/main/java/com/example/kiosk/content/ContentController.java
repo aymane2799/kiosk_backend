@@ -17,7 +17,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ContentController {
 
-    private final ContentService contentService;
+    private final ContentServiceImplementation contentService;
 
     @GetMapping
     public List<ContentSummaryResponse> list(Authentication authentication) {
